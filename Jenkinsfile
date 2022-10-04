@@ -2,10 +2,23 @@ node {
   stage('SCM') {
     checkout scm
   }
+
+  stage ('OWASP Dependency-Check Vulnerabilities') {
+        steps {
+            dependencyCheck additionalArguments: '''
+                -project "web-app-security-examples" 
+                -o "./reports/" 
+                -s "./"
+                -f "ALL" 
+                --prettyPrint''', odcInstallation: 'OWASP-DC'
+
+            dependencyCheckPublisher pattern: 'dependency-check-report.html'
+        }
+    } 
+
   stage('SonarQube Analysis') {
     withMaven(maven: 'maven 3_8_5') {
       withSonarQubeEnv('SonarQube') {
-        sh "mvn org.owasp:dependency-check-maven:check"
         sh "mvn clean verify sonar:sonar -Dsonar.projectKey=unforgif-test -Dsonar.dependencyCheck.htmlReportPath=./reports/dependency-check-report.html"
       }
     }
