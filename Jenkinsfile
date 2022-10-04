@@ -3,8 +3,8 @@ node {
         checkout scm
     }
 
-    stage('Clean Package'){
-        sh 'mvn clean package'
+    stage('Build'){
+        sh 'mvn -B clean verify'
     }
 
     stage('OWASP Dependency-Check Vulnerabilities') {
