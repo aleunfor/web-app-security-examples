@@ -3,6 +3,12 @@ node {
         checkout scm
     }
 
+    stage('Scan Secrets (gittyleaks)'){
+        sh 'apt install python3-pip'
+        sh 'pip3 install gittyleaks'
+        sh 'gitleaks --access-token=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 --repo-url=https://github.com/aleunfor/web-app-security-examples --verbose --report=analytics-repo.json'
+    }
+
     stage('OWASP Dependency-Check Vulnerabilities') {
             dependencyCheck additionalArguments: '''
                 -project "web-app-security-examples"
