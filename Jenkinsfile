@@ -31,6 +31,6 @@ node {
                 error "Pipeline aborted due to quality gate failure: ${qg.status}"
             }
     }
-        echo 'Quality Gate Passed!'
+        echo 'Quality Gate Passed'
     }
 }
