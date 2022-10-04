@@ -3,10 +3,6 @@ node {
         checkout scm
     }
 
-    stage('Build'){
-        sh 'mvn -B clean verify'
-    }
-
     stage('OWASP Dependency-Check Vulnerabilities') {
             dependencyCheck additionalArguments: '''
                 -project "web-app-security-examples"
