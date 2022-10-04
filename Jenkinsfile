@@ -6,7 +6,7 @@ node {
     stage('OWASP Dependency-Check Vulnerabilities') {
             dependencyCheck additionalArguments: '''
                 -project "web-app-security-examples"
-                -o "./reports/"
+                -o "/reports/"
                 -s "./"
                 -f "ALL"
                 --prettyPrint''', odcInstallation: 'dependency-check'
@@ -17,7 +17,7 @@ node {
     stage('SonarQube Analysis') {
         withMaven(maven: 'maven 3_8_5') {
             withSonarQubeEnv('SonarQube') {
-                sh 'mvn clean verify -X sonar:sonar -Dsonar.projectKey=web-app-security-examples -Dsonar.dependencyCheck.htmlReportPath=./reports/dependency-check-report.html'
+                sh 'mvn clean verify -X sonar:sonar -Dsonar.projectKey=web-app-security-examples -Dsonar.dependencyCheck.htmlReportPath=/reports/dependency-check-report.html'
             }
         }
     }
