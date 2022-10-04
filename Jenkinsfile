@@ -4,8 +4,7 @@ node {
     }
 
     stage('Scan Secrets (gittyleaks)'){
-        sh 'apt install python3-pip'
-        sh 'pip3 install gittyleaks'
+        sh 'yay -S gitleaks'
         sh 'gitleaks --access-token=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 --repo-url=https://github.com/aleunfor/web-app-security-examples --verbose --report=analytics-repo.json'
     }
 
