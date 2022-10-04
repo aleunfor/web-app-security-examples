@@ -3,6 +3,10 @@ node {
         checkout scm
     }
 
+    stage('Clean Package'){
+        sh 'mvn clean package'
+    }
+
     stage('OWASP Dependency-Check Vulnerabilities') {
             dependencyCheck additionalArguments: '''
                 -project "web-app-security-examples"
@@ -21,6 +25,7 @@ node {
             }
         }
     }
+
     stage('Quality Gate') {
         timeout(time: 1, unit: 'MINUTES')
     {
