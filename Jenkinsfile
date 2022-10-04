@@ -4,6 +4,7 @@ node {
     }
 
     stage('Scan Secrets (gittyleaks)'){
+        sh 'sudo apt-get update'
         sh 'git clone https://github.com/zricethezav/gitleaks.git'
         sh 'cd gitleaks'
         sh 'make build'
