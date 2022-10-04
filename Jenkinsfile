@@ -6,7 +6,7 @@ node {
     stage('OWASP Dependency-Check Vulnerabilities') {
             dependencyCheck additionalArguments: '''
                 -project "web-app-security-examples"
-                -o "/reports/"
+                -o "/reports"
                 -s "./"
                 -f "ALL"
                 --prettyPrint''', odcInstallation: 'dependency-check'
