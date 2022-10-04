@@ -15,10 +15,9 @@ node {
     }
 
     stage('SonarQube Analysis') {
-        withMaven(maven: 'maven 3_8_5') {
-            withSonarQubeEnv('SonarQube') {
-                sh 'mvn -f /var/jenkins_home/workspace/pom.xml clean verify -X sonar:sonar -Dsonar.projectKey=web-app-security-examples -Dsonar.dependencyCheck.htmlReportPath=/reports/dependency-check-report.html'
-            }
+        def scannerHome = tool 'Sonar Scanners'
+        withSonarQubeEnv('SonarQube') { // If you have configured more than one global server connection, you can specify its name
+            sh "${scannerHome}/bin/sonar-scanner"
         }
     }
 
