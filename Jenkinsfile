@@ -1,14 +1,21 @@
 node {
+    agent {
+        docker {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
+    }
+
     stage('SCM') {
         checkout scm
     }
 
+    stage('Install Secrets Scan'){
+        sh 'npm i git-secret-scanner'
+    }
+
     stage('Scan Secrets (gittyleaks)'){
-        sh 'sudo apt-get update'
-        sh 'git clone https://github.com/zricethezav/gitleaks.git'
-        sh 'cd gitleaks'
-        sh 'make build'
-        sh 'gitleaks --access-token=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 --repo-url=https://github.com/aleunfor/web-app-security-examples --verbose --report=analytics-repo.json'
+        sh 'git-secret-scanner scan -o /report-secrets'
     }
 
     stage('OWASP Dependency-Check Vulnerabilities') {
