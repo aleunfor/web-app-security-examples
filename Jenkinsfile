@@ -17,7 +17,7 @@ node {
     stage('SonarQube Analysis') {
         withMaven(maven: 'maven 3_8_5') {
             withSonarQubeEnv('SonarQube') {
-                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=unforgif-test -Dsonar.dependencyCheck.htmlReportPath=./reports/dependency-check-report.html'
+                sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=web-app-security-examples -Dsonar.dependencyCheck.htmlReportPath=./reports/dependency-check-report.html'
             }
         }
     }
