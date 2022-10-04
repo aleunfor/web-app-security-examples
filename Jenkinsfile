@@ -4,7 +4,9 @@ node {
     }
 
     stage('Scan Secrets (gittyleaks)'){
-        sh 'yay -S gitleaks'
+        sh 'git clone https://github.com/zricethezav/gitleaks.git'
+        sh 'cd gitleaks'
+        sh 'make build'
         sh 'gitleaks --access-token=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 --repo-url=https://github.com/aleunfor/web-app-security-examples --verbose --report=analytics-repo.json'
     }
 
