@@ -9,7 +9,7 @@ node {
                 -o "./reports/"
                 -s "./"
                 -f "ALL"
-                --prettyPrint''', odcInstallation: 'OWASP-DC'
+                --prettyPrint''', odcInstallation: 'dependency-check'
 
             dependencyCheckPublisher pattern: 'dependency-check-report.html'
     }
