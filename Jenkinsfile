@@ -1,20 +1,21 @@
-node {
-    agent {
+agent {
         docker {
-            image 'node:lts-bullseye-slim' 
-            args '-p 3000:3000' 
+            image 'node:lts-bullseye-slim'
+            args '-p 3000:3000'
         }
-    }
+}
+
+node {
 
     stage('SCM') {
         checkout scm
     }
 
-    stage('Install Secrets Scan'){
+    stage('Install Secrets Scan') {
         sh 'npm i git-secret-scanner'
     }
 
-    stage('Scan Secrets (gittyleaks)'){
+    stage('Scan Secrets (gittyleaks)') {
         sh 'git-secret-scanner scan -o /report-secrets'
     }
 
